@@ -1,0 +1,44 @@
+<div class="page-layout blank p-24" fusePerfectScrollbar>
+
+    <h2>{{'Top Atividades'}}</h2>
+
+    <div class="content">
+
+        <div class="cards">
+
+            <!-- CARD 1 -->
+            <div class="card" *ngFor="let activity of activities">
+                <div class="fuse-card">
+
+                    <img src="{{activity.url}}">
+                
+                    <div class="px-16 py-4" fxLayout="row" fxLayoutAlign="start center">
+                        <button mat-icon-button aria-label="add to favorites">
+                            <mat-icon>favorite</mat-icon>
+                        </button>
+                
+                        <button mat-icon-button aria-label="bookmark">
+                            <mat-icon>bookmark</mat-icon>
+                        </button>
+                
+                        <button mat-icon-button aria-label="send location">
+                            <mat-icon>location_on</mat-icon>
+                        </button>
+                    </div>
+            
+                    <div class="p-16">
+                        <div class="h1">{{activity.title}}</div>
+                        <div class="h4 secondary-text">{{activity.date}}</div>
+                    </div>
+                
+                    <div class="p-16 pt-0 line-height-1.75">
+                        {{activity.description}}
+                    </div>
+                
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+</div>

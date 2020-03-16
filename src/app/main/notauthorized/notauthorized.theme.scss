@@ -1,0 +1,22 @@
+@mixin notauthorized-theme($theme) {
+
+    $background: map-get($theme, background);
+    $foreground: map-get($theme, foreground);
+
+    notauthorized {
+
+        #notauthorized {
+
+            #notauthorized-form-wrapper {
+
+                #notauthorized-form {
+                    background: map-get($background, card);
+
+                    .subtitle {
+                        color: map-get($foreground, secondary-text);
+                    }
+                }
+            }
+        }
+    }
+}

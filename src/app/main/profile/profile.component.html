@@ -1,0 +1,93 @@
+<div id="profile" class="page-layout simple tabbed">
+
+    <!-- HEADER -->
+    <div class="header p-24" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-sm="row"
+         fxLayoutAlign.gt-sm="space-between end">
+
+        <div class="user-info" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-sm="row"
+             fxLayoutAlign.gt-sm="start center">
+            <img class="profile-image avatar huge" src="assets/images/avatars/Velazquez.jpg"
+                 [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+            <div class="name" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                {{ user?.name }}
+            </div>
+        </div>
+
+        <div class="actions" fxLayout="row" fxLayoutAlign="end center" [@animate]="{value:'*',params:{delay:'200ms'}}">
+            <button mat-raised-button color="accent" aria-label="Follow">Seguir</button>
+            <button mat-raised-button color="primary" aria-label="Send Message">Enviar Mensagem</button>
+        </div>
+
+    </div>
+    <!-- / HEADER -->
+
+    <div class="content">
+        <div id="about" class="p-24" fxLayout="row wrap">
+
+            <div class="about-content" fxLayout="column" fxFlex="100" fxFlex.gt-sm="50" fxFlex.gt-md="65">
+        
+                <div class="profile-box info-box general" fxLayout="column">
+        
+                    <header class="accent">
+                        <div class="title">Informações Gerais</div>
+                    </header>
+        
+                    <div class="content">
+                        <div class="info-line">
+                            <div class="title">Idade</div>
+                            <div class="info">{{ user?.age }} anos</div>
+                        </div>
+        
+                        <div class="info-line">
+                            <div class="title">Onde mora</div>
+                            <div class="info">São Paulo</div>
+                        </div>
+        
+                    </div>
+        
+                </div>
+        
+                <div class="profile-box info-box work" fxLayout="column">
+        
+                    <header class="accent">
+                        <div class="title">Esportes Praticados</div>
+                    </header>
+        
+                    <div class="content">
+                        
+                        <div class="info-line">
+                            <div class="title">Futebol</div>
+                            <div class="info">
+                                <div class="user" fxLayout="row" fxLayoutAlign="start center">
+                                    <img class="avatar" src="assets/images/sports/futebol.png">
+                                    <span style="    margin-left: 20px;">2 anos, nível Amador</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="info-line">
+                            <div class="title">Natação</div>
+                            <div class="info">
+                                <div class="user" fxLayout="row" fxLayoutAlign="start center">
+                                    <img class="avatar" src="assets/images/sports/natacao.png">
+                                    <span style="    margin-left: 20px;">4 anos, nível Profissíonal</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="info-line">
+                            <div class="title">Caminhada</div>
+                            <div class="info">
+                                <div class="user" fxLayout="row" fxLayoutAlign="start center">
+                                    <img class="avatar" src="assets/images/sports/caminhada.png">
+                                    <span style="    margin-left: 20px;">1 ano, nível Iniciante</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+            </div>
+        
+        </div>
+    </div>
+
+</div>

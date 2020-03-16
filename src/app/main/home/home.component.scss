@@ -1,0 +1,27 @@
+@import "src/@fuse/scss/fuse";
+
+.content {
+
+    .cards {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-items: flex-start;
+
+        .card {
+            display: flex;
+            align-items: flex-start;
+            padding: 24px 24px 24px 24px;
+
+            .card-preview {
+                display: flex;
+                min-width: 320px;
+            }
+
+            .card-source {
+                display: none;
+            }
+        }
+    }
+}

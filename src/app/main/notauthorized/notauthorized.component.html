@@ -1,0 +1,32 @@
+<div id="notauthorized" fxLayout="column">
+    
+    <div id="notauthorized-form-wrapper" fxLayout="column" fxLayoutAlign="center center">
+        
+        <div id="notauthorized-form" [@animate]="{value:'*',params:{duration:'300ms',y:'100px'}}">
+            
+            <div class="logo">
+                <img src="assets/images/logos/logo-h2g.png">
+            </div>
+            
+            <div class="title">Você precisa estar logado!</div>
+            
+            <div class="subtitle">
+                Escolha uma das opções abaixo!
+            </div>
+            
+            <div fxLayout="row" fxLayoutAlign="center center" class="mb-12">
+                <button mat-raised-button color="accent" class="login-button" aria-label="Login" routerLink="/login">
+                    Login
+                </button>
+            </div>
+
+            <div class="register" fxLayout="column" fxLayoutAlign="center center">
+                <span class="text">Ainda não tem conta?</span>
+                <a class="link" [routerLink]="'/register/create'">Criar conta</a>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

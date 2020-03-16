@@ -1,0 +1,22 @@
+@mixin register-success-theme($theme) {
+
+    $background: map-get($theme, background);
+    $foreground: map-get($theme, foreground);
+
+    register-success {
+
+        #register-success {
+
+            #register-success-form-wrapper {
+
+                #register-success-form {
+                    background: map-get($background, card);
+
+                    .subtitle {
+                        color: map-get($foreground, secondary-text);
+                    }
+                }
+            }
+        }
+    }
+}

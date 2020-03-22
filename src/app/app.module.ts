@@ -59,6 +59,10 @@ const appRoutes: Routes = [
         path      : '',
         redirectTo: 'home',
         pathMatch : 'full'
+    },
+    {
+        path      : 'donation',
+        loadChildren: () => import('./main/donation/donation.module').then(m => m.DonationModule)
     }
 ];
 
@@ -104,7 +108,7 @@ const appRoutes: Routes = [
     bootstrap   : [
         AppComponent
     ],
-    providers: [AuthGuard, AuthService, GatewayService]
+    providers: [AuthGuard, AuthService, GatewayService ]
 })
 export class AppModule
 {

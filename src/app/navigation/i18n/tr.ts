@@ -3,9 +3,14 @@ export const locale = {
     data: {
         'NAV': {
             'APPLICATIONS': 'Programlar',
-            'SAMPLE'        : {
-                'TITLE': 'Örnek',
-                'BADGE': '15'
+            'HOME'        : {
+                'TITLE': 'Home'
+            },
+            'DONATE'        : {
+                'TITLE': 'Doações'
+            },
+            'DONATECENTER'        : {
+                'TITLE': 'Centros de Doação'
             }
         }
     }

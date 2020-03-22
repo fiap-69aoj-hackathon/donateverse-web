@@ -2,10 +2,15 @@ export const locale = {
     lang: 'en',
     data: {
         'NAV': {
-            'APPLICATIONS': 'Menu',
-            'SAMPLE'        : {
-                'TITLE': 'Home',
-                'BADGE': '25'
+            'APPLICATIONS': 'Programlar',
+            'HOME'        : {
+                'TITLE': 'Home'
+            },
+            'DONATE'        : {
+                'TITLE': 'Doações'
+            },
+            'DONATECENTER'        : {
+                'TITLE': 'Centros de Doação'
             }
         }
     }

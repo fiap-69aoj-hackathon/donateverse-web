@@ -10,10 +10,26 @@ export const navigation: FuseNavigation[] = [
             {
                 id       : 'home',
                 title    : 'Home',
-                translate: 'NAV.SAMPLE.TITLE',
+                translate: 'NAV.HOME.TITLE',
                 type     : 'item',
                 icon     : 'home',
                 url      : '/home'
+            },
+            {
+                id       : 'donate',
+                title    : 'Doações',
+                translate: 'NAV.DONATE.TITLE',
+                type     : 'item',
+                icon     : 'location_on',
+                url      : '/donate'
+            },
+            {
+                id       : 'donate-center',
+                title    : 'Centros de Doação',
+                translate: 'NAV.DONATECENTER.TITLE',
+                type     : 'item',
+                icon     : 'favorite_border',
+                url      : '/donate-center'
             }
         ]
     }

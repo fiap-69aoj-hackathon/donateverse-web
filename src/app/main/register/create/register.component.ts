@@ -101,22 +101,22 @@ export class RegisterComponent implements OnInit, OnDestroy {
             this.registerForm.get('password').value
         );
         this.gatewayService.createUser(user)
-        .subscribe(
-            user => {
-                if(user) {
-                    this.router.navigate(['/register/success']);
-                } else {
-                    this.msgError = 'Ocorreu um erro ao salvar os dados. Tente novamente mais tarde!';
+            .subscribe(
+                user => {
+                    if (user) {
+                        this.router.navigate(['/register/success']);
+                    } else {
+                        this.msgError = 'Ocorreu um erro ao salvar os dados. Tente novamente mais tarde!';
+                    }
+                },
+                error => {
+                    if (error.status === 400) {
+                        this.msgError = 'Confira os campos digitados e tente novamente!';
+                    } else {
+                        this.msgError = 'Ocorreu um erro ao salvar os dados. Tente novamente mais tarde!';
+                    }
                 }
-            },
-            error => {
-                if(error.status === 400) {
-                    this.msgError = 'Confira os campos digitados e tente novamente!';
-                } else {
-                    this.msgError = 'Ocorreu um erro ao salvar os dados. Tente novamente mais tarde!';
-                }
-            }
-          );
+            );
     }
 }
 

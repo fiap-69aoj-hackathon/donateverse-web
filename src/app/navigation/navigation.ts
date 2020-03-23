@@ -21,7 +21,7 @@ export const navigation: FuseNavigation[] = [
                 translate: 'NAV.DONATE.TITLE',
                 type     : 'item',
                 icon     : 'location_on',
-                url      : '/donate'
+                url      : '/donation/list'
             },
             {
                 id       : 'donate-center',

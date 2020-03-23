@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { Login } from '../main/login/login.model';
 import { User } from '../model/user.model';
 import { Token } from 'app/main/login/token.model';
+import { Donation } from 'app/model/donation.model';
 
 @Injectable()
 export class GatewayService {
@@ -26,6 +27,14 @@ export class GatewayService {
 
   getUser(token: string) {
     return this.http.get<User>(`${this.url}/user/users/me`, {
+      headers: new HttpHeaders({
+        "Authorization": token
+      })
+    });
+  }
+
+  createDonation(donation: Donation, token: string): Observable<Donation> {
+    return this.http.post<Donation>(`${this.url}/donation/transactions`, donation, {
       headers: new HttpHeaders({
         "Authorization": token
       })

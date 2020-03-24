@@ -11,6 +11,7 @@ import { fuseAnimations } from '@fuse/animations';
 import { DD_MM_YYYY_Format } from 'app/shared/date.format.constants';
 import { GatewayService } from 'app/shared/gateway.service';
 import { User } from 'app/model/user.model';
+import { State } from 'app/model/state.model';
 
 @Component({
     selector: 'register',
@@ -25,6 +26,7 @@ import { User } from 'app/model/user.model';
 export class RegisterComponent implements OnInit, OnDestroy {
     registerForm: FormGroup;
     msgError: string;
+    states: State[];
 
     // Private
     private _unsubscribeAll: Subject<any>;
@@ -53,6 +55,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
             }
         };
 
+        this.states = this.gatewayService.getStates();
+
         // Set the private defaults
         this._unsubscribeAll = new Subject();
     }
@@ -71,6 +75,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
             password: ['', Validators.required],
             phone: ['', Validators.required],
             birthday: ['', Validators.required],
+            state: ['', Validators.required],
+            city: ['', Validators.required],
             passwordConfirm: ['', [Validators.required, confirmPasswordValidator]]
         });
 
@@ -98,6 +104,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
             this.registerForm.get('email').value,
             this.registerForm.get('phone').value,
             this.registerForm.get('birthday').value.format('DD/MM/YYYY'),
+            this.registerForm.get('state').value,
+            this.registerForm.get('city').value,
             this.registerForm.get('password').value
         );
         this.gatewayService.createUser(user)

@@ -14,7 +14,7 @@
             <!-- APP TITLE -->
             <div class="logo mb-24 mb-sm-0" fxLayout="row" fxLayoutAlign="start center">
                 <mat-icon class="logo-icon s-32 mr-16" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
-                    shopping_basket
+                    add_circle_outline
                 </mat-icon>
                 <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">Solicitar
                     Doações</span>
@@ -53,7 +53,7 @@
 
                     <div fxLayout="row" fxLayoutAlign="end center">
                         <button mat-button class="blue" (click)="addItem()" aria-label="Adicionar"
-                                matTooltip="Adicionar">Adicionar</button>
+                            matTooltip="Adicionar">Adicionar</button>
                     </div>
 
                 </form>
@@ -62,12 +62,12 @@
 
             <div class="pl-24 pr-24 pt-0 pb-16">
                 <div class="pb-16" fxLayout="row" fxLayoutAlign="start center">
-                    <mat-icon class="m-0 mr-16 secondary-text">account_circle</mat-icon>
+                    <mat-icon class="m-0 mr-16 secondary-text">list</mat-icon>
                     <div class="h2 secondary-text">Itens Adicionados</div>
                 </div>
             </div>
 
-            <table #table mat-table [dataSource]="donations" class="mat-elevation-z8">
+            <table #table mat-table [dataSource]="donations" class="mat-elevation-z8 m-12">
 
                 <ng-container matColumnDef="description">
                     <th mat-header-cell *matHeaderCellDef> Descrição </th>
@@ -93,11 +93,10 @@
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
 
-
-            <div class="p-24">
+            <div class="p-12">
                 <div fxLayout="row" fxLayoutAlign="end center">
                     <button mat-button class="blue" (click)="confirm()" aria-label="Confirmar"
-                            matTooltip="Confirmar">Confirmar</button>
+                        matTooltip="Confirmar">Confirmar</button>
                 </div>
             </div>
 

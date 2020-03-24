@@ -24,10 +24,7 @@ export class DonationCreateComponent implements OnInit, OnDestroy {
     msgError: string;
 
     displayedColumns: string[] = ['description', 'amount', 'options'];
-    donations: Product[] = [
-        new Product('Pacote Fralda M', 3),
-        new Product('Chinelo tamanho 26', 1)
-    ];
+    donations: Product[] = [];
 
     constructor(
         private _formBuilder: FormBuilder,

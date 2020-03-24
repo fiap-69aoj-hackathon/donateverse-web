@@ -11,6 +11,10 @@ const routes = [
     {
         path        : 'create',
         loadChildren: () => import('./create/donation.create.module').then(m => m.DonationCreateModule)
+    },
+    {
+        path        : 'view/:id',
+        loadChildren: () => import('./view/donation.view.module').then(m => m.DonationViewModule)
     }
 ];
 

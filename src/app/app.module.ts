@@ -23,7 +23,6 @@ import { LayoutModule } from 'app/layout/layout.module';
 import { HomeModule } from 'app/main/home/home.module';
 import { LoginModule } from 'app/main/login/login.module';
 import { ProfileModule } from 'app/main/profile/profile.module';
-import { UICardsModule } from 'app/main/cards/cards.module';
 import { RegisterModule } from 'app/main/register/register.module';
 import { AuthGuard } from './main/auth-guard.service';
 import { AuthService } from './main/auth.service';
@@ -34,10 +33,6 @@ const appRoutes: Routes = [
     {
         path      : 'home',
         redirectTo: 'home'
-    },
-    {
-        path      : 'cards',
-        redirectTo: 'cards'
     },
     {
         path      : 'login',
@@ -56,13 +51,17 @@ const appRoutes: Routes = [
         redirectTo: 'notauthorized'
     },
     {
+        path      : 'donation',
+        loadChildren: () => import('./main/donation/donation.module').then(m => m.DonationModule)
+    },
+    {
+        path      : 'donation-center',
+        loadChildren: () => import('./main/donation-center/donation-center.module').then(m => m.DonationCenterModule)
+    },
+    {
         path      : '',
         redirectTo: 'home',
         pathMatch : 'full'
-    },
-    {
-        path      : 'donation',
-        loadChildren: () => import('./main/donation/donation.module').then(m => m.DonationModule)
     }
 ];
 
@@ -101,7 +100,6 @@ const appRoutes: Routes = [
         LoginModule,
         ProfileModule,
         HomeModule,
-        UICardsModule,
         RegisterModule,
         NotAuthorizedModule
     ],

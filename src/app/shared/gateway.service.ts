@@ -9,10 +9,12 @@ import { Token } from 'app/main/login/token.model';
 import { Donation } from 'app/model/donation.model';
 import { State } from 'app/model/state.model';
 import { DonationStatus } from 'app/model/donation.status.model';
+import { DonationCenter } from 'app/model/donation-center.model';
 
 @Injectable()
 export class GatewayService {
   url: string;
+  urlDonationCenter: string;
   states: State[] = [
     new State('AC', 'Acre'),
     new State('AL', 'Alagoas'),
@@ -46,6 +48,8 @@ export class GatewayService {
   constructor(private http: HttpClient) {
     this.url = 'http://localhost:9091';
     // this.url = 'http://donateverse-api.sa-east-1.elasticbeanstalk.com'
+
+    this.urlDonationCenter = 'http://localhost:3012';
   }
 
   // ######################### AUTYH #########################
@@ -79,7 +83,7 @@ export class GatewayService {
   // ######################### DONATION #########################
 
   createDonation(donation: Donation, token: string): Observable<Donation> {
-    return this.http.post<Donation>(`${this.url}/donation/transactions`, donation, {
+    return this.http.post<Donation>(`${this.urlDonationCenter}/DonationCenter`, donation, {
       headers: new HttpHeaders({
         "Authorization": token
       })
@@ -108,6 +112,20 @@ export class GatewayService {
         "Authorization": token
       })
     });
+  }
+
+  // ######################### DONATION CENTER #########################
+
+  createDonationCenter(donationCenter: DonationCenter) {
+    return this.http.post<any>(`${this.urlDonationCenter}/DonationCenter`, donationCenter);
+  }
+
+  listDonationCenter(): Observable<DonationCenter[]> {
+    return this.http.get<DonationCenter[]>(`${this.urlDonationCenter}/DonationCenter`);
+  }
+
+  getDonationCenterById(id: number): Observable<DonationCenter> {
+    return this.http.get<DonationCenter>(`${this.urlDonationCenter}/DonationCenter${id}`);
   }
 
   // ######################### OUTROS #########################

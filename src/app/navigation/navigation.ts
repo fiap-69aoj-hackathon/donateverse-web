@@ -24,12 +24,12 @@ export const navigation: FuseNavigation[] = [
                 url      : '/donation/list'
             },
             {
-                id       : 'donate-center',
+                id       : 'donation-center',
                 title    : 'Centros de Doação',
                 translate: 'NAV.DONATECENTER.TITLE',
                 type     : 'item',
                 icon     : 'favorite_border',
-                url      : '/donate-center'
+                url      : '/donation-center/list'
             }
         ]
     }

@@ -1,4 +1,4 @@
-<div id="donation-view" class="page-layout carded fullwidth inner-scroll">
+<div id="donation-view" class="page-layout carded fullwidth">
 
     <!-- TOP BACKGROUND -->
     <div class="top-bg accent"></div>
@@ -27,6 +27,10 @@
 
             <div class="p-12">
 
+                <div class="message-box error m-16" [hidden]="!msgError">
+                    {{msgError}}
+                </div>
+
                 <div class="fuse-card mb-12">
 
                     <mat-list>
@@ -50,6 +54,21 @@
                                 <span class="secondary-text">{{ donationItem?.date }}</span>
                             </p>
                         </mat-list-item>
+
+                        <mat-list-item>
+                            <h3 matLine>Status da Solicitação</h3>
+                            <p matLine>
+                                <span class="secondary-text" *ngIf="donationItem?.status === 1">
+                                    Aguardando doador
+                                </span>
+                                <span class="secondary-text" *ngIf="donationItem?.status === 2">
+                                    Aguardando confirmação doação
+                                </span>
+                                <span class="secondary-text" *ngIf="donationItem?.status === 3">
+                                    Doação confirmada
+                                </span>
+                            </p>
+                        </mat-list-item>
                     </mat-list>
 
                 </div>
@@ -69,6 +88,20 @@
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                 </table>
+
+                <div class="p-12" *ngIf="donationItem?.status === 1">
+                    <div fxLayout="row" fxLayoutAlign="end center">
+                        <button mat-button class="blue" (click)="donate()" aria-label="Confirmar"
+                            matTooltip="Confirmar">Fazer Doção</button>
+                    </div>
+                </div>
+
+                <div class="p-12" *ngIf="donationItem?.status === 2">
+                    <div fxLayout="row" fxLayoutAlign="end center">
+                        <button mat-button class="blue" (click)="confirmDonate()" aria-label="Confirmar"
+                            matTooltip="Confirmar">Doação Recebida</button>
+                    </div>
+                </div>
 
             </div>
 

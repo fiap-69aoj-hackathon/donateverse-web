@@ -22,8 +22,9 @@ export class DonationListComponent implements OnInit, OnDestroy
 {
 
     @ViewChild('table') table: MatTable<any>;
-    displayedColumns: string[] = ['userName', 'userLocation', 'date', 'itens', 'options'];
+    displayedColumns: string[] = ['userName', 'userLocation', 'date', 'status', 'itens', 'options'];
     donations: DonationItem[] = [];
+    msgError: string;
 
     constructor(
         private gatewayService: GatewayService,
@@ -48,11 +49,12 @@ export class DonationListComponent implements OnInit, OnDestroy
                     if (donations) {
                         this.getUsers(donations);
                     } else {
-                        console.error('Ocorreu um erro.');
+                        this.showError('Ocorreu um erro.');
                     }
                 },
                 error => {
                     console.error(error);
+                    this.showError('Ocorreu um erro.');
                 }
             );
     }
@@ -69,31 +71,46 @@ export class DonationListComponent implements OnInit, OnDestroy
     // -----------------------------------------------------------------------------------------------------
 
     async getUsers(donations: Donation[]) {
-        for (const donation of donations) {
-            let user = <User>await this.gatewayService.getUserById(this.authService.getToken(), donation.idUser);
+        try {
             
-            let products = '';
-
-            if(donation.products.length > 0) {
-                const reducerProducts = (acc, curr) => acc + curr.amount +  ' ' + curr.description + ", ";
-                products = donation.products.reduce(reducerProducts, "");
-                products = products.slice(0, -2);
+            for (const donation of donations) {
+                let user = <User>await this.gatewayService.getUserById(this.authService.getToken(), donation.idUser);
+                
+                let products = '';
+    
+                if(donation.products.length > 0) {
+                    const reducerProducts = (acc, curr) => acc + curr.amount +  ' ' + curr.description + ", ";
+                    products = donation.products.reduce(reducerProducts, "");
+                    products = products.slice(0, -2);
+                }
+    
+                let date = moment(donation.creationDate, "YYYY-MM-DDTHH:mm:ss.SSSS");
+                
+                let donationList = new DonationItem(
+                    donation.id,
+                    user.id,
+                    user.name,
+                    user.city + ' - ' + user.state,
+                    date.format('DD/MM/YYYY'),
+                    donation.status,
+                    products
+                );
+    
+                this.donations.push(donationList);
             }
+            this.table.renderRows();
 
-            let date = moment(donation.creationDate, "YYYY-MM-DDTHH:mm:ss.SSSS");
-            
-            let donationList = new DonationItem(
-                donation.id,
-                user.id,
-                user.name,
-                user.city + ' - ' + user.state,
-                date.format('DD/MM/YYYY'),
-                products
-            );
-
-            this.donations.push(donationList);
+        } catch(error) {
+            console.log(error);
+            this.showError('Ocorreu um erro.');
         }
-        this.table.renderRows();
+    }
+
+    showError(msg: string) {
+        this.msgError = msg;
+        setTimeout(() => {
+            this.msgError = null;
+        }, 3000);
     }
 
 }

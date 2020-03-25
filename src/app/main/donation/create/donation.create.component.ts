@@ -97,23 +97,20 @@ export class DonationCreateComponent implements OnInit, OnDestroy {
                             user.id, this.donations, 1
                         );
 
-                        console.log(donation)
-
-
                         this.gatewayService.createDonation(donation, this.authService.getToken())
                             .subscribe(
                                 donation => {
                                     if (donation) {
                                         this.router.navigate(['/donation/list']);
                                     } else {
-                                        this.msgError = 'Ocorreu um erro ao salvar os dados. Tente novamente mais tarde!';
+                                        this.showError('Ocorreu um erro ao salvar os dados. Tente novamente mais tarde!');
                                     }
                                 },
                                 error => {
                                     if (error.status === 400) {
-                                        this.msgError = 'Confira os campos digitados e tente novamente!';
+                                        this.showError('Confira os campos digitados e tente novamente!');
                                     } else {
-                                        this.msgError = 'Ocorreu um erro ao salvar os dados. Tente novamente mais tarde!';
+                                        this.showError('Ocorreu um erro ao salvar os dados. Tente novamente mais tarde!');
                                     }
                                 }
                             );
@@ -121,13 +118,21 @@ export class DonationCreateComponent implements OnInit, OnDestroy {
 
 
                     } else {
-                        console.error('Ocorreu um erro.');
+                        this.showError('Ocorreu um erro.');
                     }
                 },
                 error => {
                     console.error(error);
+                    this.showError('Ocorreu um erro.');
                 }
             );
+    }
+
+    showError(msg: string) {
+        this.msgError = msg;
+        setTimeout(() => {
+            this.msgError = null;
+        }, 5000);
     }
 
 }

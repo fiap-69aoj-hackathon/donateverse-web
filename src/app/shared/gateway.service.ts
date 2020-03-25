@@ -8,6 +8,7 @@ import { User } from '../model/user.model';
 import { Token } from 'app/main/login/token.model';
 import { Donation } from 'app/model/donation.model';
 import { State } from 'app/model/state.model';
+import { DonationStatus } from 'app/model/donation.status.model';
 
 @Injectable()
 export class GatewayService {
@@ -47,9 +48,13 @@ export class GatewayService {
     // this.url = 'http://donateverse-api.sa-east-1.elasticbeanstalk.com'
   }
 
+  // ######################### AUTYH #########################
+
   login(login: Login): Observable<Token> {
     return this.http.post<Token>(`${this.url}/login`, login);
   }
+
+  // ######################### USER #########################
 
   createUser(user: User): Observable<User> {
     return this.http.post<User>(`${this.url}/user/users`, user);
@@ -62,6 +67,16 @@ export class GatewayService {
       })
     });
   }
+
+  getUserById(token: string, idUser: number): Promise<User> {
+    return this.http.get<User>(`${this.url}/user/users/${idUser}`, {
+      headers: new HttpHeaders({
+        "Authorization": token
+      })
+    }).toPromise();
+  }  
+
+  // ######################### DONATION #########################
 
   createDonation(donation: Donation, token: string): Observable<Donation> {
     return this.http.post<Donation>(`${this.url}/donation/transactions`, donation, {
@@ -87,17 +102,15 @@ export class GatewayService {
     });
   }
 
-  getUserById(token: string, idUser: number): Promise<User> {
-    return this.http.get<User>(`${this.url}/user/users/${idUser}`, {
+  updateStatus(id: number, status: DonationStatus, token: string): Observable<Donation> {
+    return this.http.put<Donation>(`${this.url}/donation/transactions/${id}`, status, {
       headers: new HttpHeaders({
         "Authorization": token
       })
-    }).toPromise();
+    });
   }
 
-  async getUserByIdSync(token: string, idUser: number) {
-    return await this.getUserById(token, idUser);
-  }
+  // ######################### OUTROS #########################
 
   getStates(): State[] {
     return this.states;

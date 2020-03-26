@@ -88,7 +88,7 @@ export class GatewayService {
   // ######################### DONATION #########################
 
   createDonation(donation: Donation, token: string): Observable<Donation> {
-    return this.http.post<Donation>(`${this.urlDonationCenter}/DonationCenter`, donation, {
+    return this.http.post<Donation>(`${this.url}/donation/transactions`, donation, {
       headers: new HttpHeaders({
         "Authorization": token
       })

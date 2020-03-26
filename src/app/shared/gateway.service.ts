@@ -47,10 +47,14 @@ export class GatewayService {
   ];
 
   constructor(private http: HttpClient) {
-    this.url = 'http://localhost:9091';
+    // this.url = 'http://localhost:9091';
+    // this.urlDonationCenter = 'http://localhost:3012';
+
+    this.url = 'http://18.230.37.8:9091';
+    this.urlDonationCenter = 'http://18.230.37.8:3012';
+
     // this.url = 'http://donateverse-api.sa-east-1.elasticbeanstalk.com'
 
-    this.urlDonationCenter = 'http://localhost:3012';
   }
 
   // ######################### AUTYH #########################

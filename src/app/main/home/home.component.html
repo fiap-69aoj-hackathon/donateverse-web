@@ -1,44 +1,78 @@
-<div class="page-layout blank p-24" fusePerfectScrollbar>
+<div id="home" class="page-layout carded fullwidth inner-scroll">
 
-    <h2>{{'Top Atividades'}}</h2>
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg accent"></div>
+    <!-- / TOP BACKGROUND -->
 
-    <div class="content">
+    <!-- CENTER -->
+    <div class="center">
 
-        <div class="cards">
-
-            <!-- CARD 1 -->
-            <div class="card" *ngFor="let activity of activities">
-                <div class="fuse-card">
-
-                    <img src="{{activity.url}}">
-                
-                    <div class="px-16 py-4" fxLayout="row" fxLayoutAlign="start center">
-                        <button mat-icon-button aria-label="add to favorites">
-                            <mat-icon>favorite</mat-icon>
-                        </button>
-                
-                        <button mat-icon-button aria-label="bookmark">
-                            <mat-icon>bookmark</mat-icon>
-                        </button>
-                
-                        <button mat-icon-button aria-label="send location">
-                            <mat-icon>location_on</mat-icon>
-                        </button>
-                    </div>
-            
-                    <div class="p-16">
-                        <div class="h1">{{activity.title}}</div>
-                        <div class="h4 secondary-text">{{activity.date}}</div>
-                    </div>
-                
-                    <div class="p-16 pt-0 line-height-1.75">
-                        {{activity.description}}
-                    </div>
-                
-                </div>
+        <!-- HEADER -->
+        <div class="header accent" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="row"
+            fxLayoutAlign.gt-xs="space-between center">
+            <!-- APP TITLE -->
+            <div class="logo mb-24 mb-sm-0" fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="logo-icon s-32 mr-16" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+                    home
+                </mat-icon>
+                <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">Donateverse</span>
             </div>
+            <!-- / APP TITLE -->
         </div>
-    </div>
+        <!-- / HEADER -->
 
-    
+        <!-- CONTENT CARD -->
+        <div class="content-card" fusePerfectScrollbar>
+
+            <div class="content">
+
+                <div class="cards m-24">
+
+                    <div class="card">
+
+                        <div class="fuse-card">
+                            <div class="p-16" fxLayout="row" fxLayoutAlign="space-between center">
+                                <div class="pr-16">
+                                    <div class="h1">Doações</div>
+                                </div>
+                            </div>
+                            <div class="p-16 pt-0 line-height-1.75">
+                                Solicite doações através de um cadastro rápido e fácil, ou visualize as doações
+                                solicitadas e faça uma doação.
+                            </div>
+                            <div class="p-8 pt-0" fxLayout="row" fxLayoutAlign="end center">
+                                <button mat-button color="accent" [routerLink]="['/donation/list']">DOAÇÕES</button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="card">
+
+                        <div class="fuse-card">
+                            <div class="p-16" fxLayout="row" fxLayoutAlign="space-between center">
+                                <div class="pr-16">
+                                    <div class="h1">Centro de doações</div>
+                                </div>
+                            </div>
+                            <div class="p-16 pt-0 line-height-1.75">
+                                Cadastre ou visualize os centros de doações, onde você pode encontrar lugares para
+                                fazer doações presencialmente.
+                            </div>
+                            <div class="p-8 pt-0" fxLayout="row" fxLayoutAlign="end center">
+                                <button mat-button color="accent" [routerLink]="['/donation/list']">CENTRO DE
+                                    DOAÇÕES</button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+        <!-- / CONTENT CARD -->
+    </div>
+    <!-- / CENTER -->
 </div>

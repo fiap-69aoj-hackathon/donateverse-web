@@ -9,6 +9,9 @@ import { Product } from 'app/model/product.model'
 import { Donation } from 'app/model/donation.model'
 import { GatewayService } from 'app/shared/gateway.service';
 import { AuthService } from 'app/main/auth.service';
+import { DonationCenter } from 'app/model/donation-center.model';
+import { Address } from 'app/model/address.model';
+import * as moment from 'moment';
 
 @Component({
     selector: 'donation-center-create',
@@ -19,7 +22,7 @@ import { AuthService } from 'app/main/auth.service';
 })
 export class DonationCenterCreateComponent implements OnInit, OnDestroy {
 
-    productForm: FormGroup;
+    donationCenterForm: FormGroup;
     @ViewChild('table') table: MatTable<any>;
     msgError: string;
 
@@ -43,7 +46,7 @@ export class DonationCenterCreateComponent implements OnInit, OnDestroy {
      * On init
      */
     ngOnInit(): void {
-        this.productForm = this.createProductForm();
+        this.donationCenterForm = this.createProductForm();
 
     }
 
@@ -60,65 +63,30 @@ export class DonationCenterCreateComponent implements OnInit, OnDestroy {
     createProductForm(): FormGroup {
         return this._formBuilder.group({
             name: [''],
-            quantity: [0]
+            description: [''],
+            zipCode: [''],
+            street: [''],
+            number: [0],
+            district: [''],
+            city: [''],
+            state: [''],
+            additionalInfo: ['']
         });
     }
 
-    deleteItem(index) {
-        this.donations.splice(index, 1);
-        this.table.renderRows();
-    }
+    searchAddress() {
+        let zipCode = this.donationCenterForm.get('zipCode').value;
 
-    addItem() {
-        let product = new Product(
-            this.productForm.get('name').value,
-            this.productForm.get('quantity').value
-        );
-        this.donations.push(product)
-        this.table.renderRows();
-        this.resetForm(this.productForm)
-    }
-
-    resetForm(form: FormGroup) {
-        form.reset();
-        Object.keys(form.controls).forEach(key => {
-            form.get(key).setErrors(null);
-        });
-    }
-
-    confirm() {
-        this.gatewayService.getUser(this.authService.getToken())
+        this.gatewayService.getAddress(zipCode)
             .subscribe(
-                user => {
-                    if (user) {
-                        user = user;
-
-                        let donation = new Donation(
-                            user.id, this.donations, 1
-                        );
-
-                        this.gatewayService.createDonation(donation, this.authService.getToken())
-                            .subscribe(
-                                donation => {
-                                    if (donation) {
-                                        this.router.navigate(['/donation/list']);
-                                    } else {
-                                        this.showError('Ocorreu um erro ao salvar os dados. Tente novamente mais tarde!');
-                                    }
-                                },
-                                error => {
-                                    if (error.status === 400) {
-                                        this.showError('Confira os campos digitados e tente novamente!');
-                                    } else {
-                                        this.showError('Ocorreu um erro ao salvar os dados. Tente novamente mais tarde!');
-                                    }
-                                }
-                            );
-
-
-
+                address => {
+                    if (address) {
+                        this.donationCenterForm.get('street').setValue(address.logradouro);
+                        this.donationCenterForm.get('district').setValue(address.bairro);
+                        this.donationCenterForm.get('city').setValue(address.localidade);
+                        this.donationCenterForm.get('state').setValue(address.uf);
                     } else {
-                        this.showError('Ocorreu um erro.');
+                        this.showError('CEP não encontrato.');
                     }
                 },
                 error => {
@@ -126,6 +94,53 @@ export class DonationCenterCreateComponent implements OnInit, OnDestroy {
                     this.showError('Ocorreu um erro.');
                 }
             );
+
+    }
+
+    confirm() {
+        this.gatewayService.getUser(this.authService.getToken())
+            .subscribe(
+                user => {
+                    if (user) {
+
+                        let donationCenter = new DonationCenter(
+                            new Address(
+                                this.donationCenterForm.get('zipCode').value,
+                                this.donationCenterForm.get('street').value,
+                                this.donationCenterForm.get('number').value,
+                                this.donationCenterForm.get('district').value,
+                                this.donationCenterForm.get('city').value,
+                                this.donationCenterForm.get('state').value,
+                                this.donationCenterForm.get('additionalInfo').value
+                            ),
+                            user.id,
+                            this.donationCenterForm.get('name').value,
+                            true,
+                            this.donationCenterForm.get('description').value,
+                            moment().format()
+                        );
+                        
+                        this.gatewayService.createDonationCenter(donationCenter)
+                        .subscribe(
+                            response => {
+                                this.router.navigate(['/donation-center/list']);
+                            },
+                            error => {
+                                console.error(error);
+                                this.showError('Ocorreu um erro.');
+                            }
+                        );
+
+                    } else {
+                        console.error('Ocorreu um erro.');
+                    }
+                },
+                error => {
+                    console.error(error);
+                    this.showError('Ocorreu um erro.');
+                }
+            );
+
     }
 
     showError(msg: string) {

@@ -13,9 +13,9 @@
             <!-- APP TITLE -->
             <div class="logo mb-24 mb-sm-0" fxLayout="row" fxLayoutAlign="start center">
                 <mat-icon class="logo-icon s-32 mr-16" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
-                    favorite_border
+                    location_on
                 </mat-icon>
-                <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">Pedido de Doação</span>
+                <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">Centro de Doação</span>
             </div>
             <!-- / APP TITLE -->
 
@@ -31,76 +31,49 @@
                     {{msgError}}
                 </div>
 
-                <div class="fuse-card mb-12">
+                <div class="fuse-card m-12">
 
                     <mat-list>
                         <mat-list-item>
-                            <h3 matLine>Nome Solicitante</h3>
+                            <h3 matLine>Nome</h3>
                             <p matLine>
-                                <span class="secondary-text">{{ donationItem?.userName }}</span>
+                                <span class="secondary-text">{{ donationCenter?.name }}</span>
                             </p>
                         </mat-list-item>
-
                         <mat-list-item>
-                            <h3 matLine>Localização Solicitante</h3>
+                            <h3 matLine>Descrição</h3>
                             <p matLine>
-                                <span class="secondary-text">{{ donationItem?.userLocation }}</span>
-                            </p>
-                        </mat-list-item>
-
-                        <mat-list-item>
-                            <h3 matLine>Data Solicitação</h3>
-                            <p matLine>
-                                <span class="secondary-text">{{ donationItem?.date }}</span>
-                            </p>
-                        </mat-list-item>
-
-                        <mat-list-item>
-                            <h3 matLine>Status da Solicitação</h3>
-                            <p matLine>
-                                <span class="secondary-text" *ngIf="donationItem?.status === 1">
-                                    Aguardando doador
-                                </span>
-                                <span class="secondary-text" *ngIf="donationItem?.status === 2">
-                                    Aguardando confirmação doação
-                                </span>
-                                <span class="secondary-text" *ngIf="donationItem?.status === 3">
-                                    Doação confirmada
-                                </span>
+                                <span class="secondary-text">{{ donationCenter?.description }}</span>
                             </p>
                         </mat-list-item>
                     </mat-list>
 
-                </div>
-
-                <table #table mat-table [dataSource]="donations" class="mat-elevation-z8">
-
-                    <ng-container matColumnDef="description">
-                        <th mat-header-cell *matHeaderCellDef> Descrição </th>
-                        <td mat-cell *matCellDef="let element"> {{element.description}} </td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="amount">
-                        <th mat-header-cell *matHeaderCellDef> Quantidade </th>
-                        <td mat-cell *matCellDef="let element"> {{element.amount}} </td>
-                    </ng-container>
-
-                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                </table>
-
-                <div class="p-12" *ngIf="donationItem?.status === 1">
-                    <div fxLayout="row" fxLayoutAlign="end center">
-                        <button mat-button class="blue" (click)="donate()" aria-label="Confirmar"
-                            matTooltip="Confirmar">Fazer Doção</button>
+                    <div class="p-12" fxLayout="row" fxLayoutAlign="start center">
+                        <mat-icon class="m-0 mr-12 secondary-text">room</mat-icon>
+                        <div class="h2 secondary-text">Endereço</div>
                     </div>
-                </div>
 
-                <div class="p-12" *ngIf="donationItem?.status === 2">
-                    <div fxLayout="row" fxLayoutAlign="end center">
-                        <button mat-button class="blue" (click)="confirmDonate()" aria-label="Confirmar"
-                            matTooltip="Confirmar">Doação Recebida</button>
-                    </div>
+                    <mat-list>
+                        <mat-list-item>
+                            <h3 matLine>Endereço</h3>
+                            <p matLine>
+                                <span class="secondary-text">{{ donationCenter?.address.street }}, {{ donationCenter?.address.number }} - {{ donationCenter?.address.district }}</span>
+                            </p>
+                        </mat-list-item>
+                        <mat-list-item>
+                            <h3 matLine>Cidade</h3>
+                            <p matLine>
+                                <span class="secondary-text">{{ donationCenter?.address.city }}</span>
+                            </p>
+                        </mat-list-item>
+                        <mat-list-item>
+                            <h3 matLine>Estado</h3>
+                            <p matLine>
+                                <span class="secondary-text">{{ donationCenter?.address.state }}</span>
+                            </p>
+                        </mat-list-item>
+                    </mat-list>
+
                 </div>
 
             </div>

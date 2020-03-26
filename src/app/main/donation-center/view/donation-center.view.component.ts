@@ -12,6 +12,7 @@ import { Donation } from 'app/model/donation.model';
 import { User } from 'app/model/user.model';
 import { Product } from 'app/model/product.model';
 import { DonationStatus } from 'app/model/donation.status.model';
+import { DonationCenter } from 'app/model/donation-center.model';
 
 
 @Component({
@@ -24,14 +25,11 @@ import { DonationStatus } from 'app/model/donation.status.model';
 export class DonationCenterViewComponent implements OnInit, OnDestroy {
 
     id: number;
-    donationItem: DonationItem;
-    displayedColumns: string[] = ['description', 'amount'];
-    donations: Product[] = [];
+    donationCenter: DonationCenter;
     msgError: string;
 
     constructor(
         private gatewayService: GatewayService,
-        private authService: AuthService,
         private route: ActivatedRoute) {
     }
 
@@ -45,11 +43,11 @@ export class DonationCenterViewComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.id = this.route.snapshot.params['id']
 
-        this.gatewayService.getDonationById(this.authService.getToken(), this.id)
+        this.gatewayService.getDonationCenterById(this.id)
             .subscribe(
-                donation => {
-                    if (donation) {
-                        this.getUsers(donation);
+                donationCenter => {
+                    if (donationCenter) {
+                        this.donationCenter = donationCenter;
                     } else {
                         this.showError('Ocorreu um erro.');
                     }
@@ -70,54 +68,6 @@ export class DonationCenterViewComponent implements OnInit, OnDestroy {
     // -----------------------------------------------------------------------------------------------------
     // @ Public methods
     // -----------------------------------------------------------------------------------------------------
-
-    async getUsers(donation: Donation) {
-        try {
-            let user = <User>await this.gatewayService.getUserById(this.authService.getToken(), donation.idUser);
-    
-            let date = moment(donation.creationDate, "YYYY-MM-DDTHH:mm:ss.SSSS");
-    
-            this.donationItem = new DonationItem(
-                donation.id,
-                user.id,
-                user.name,
-                user.city + ' - ' + user.state,
-                date.format('DD/MM/YYYY'),
-                donation.status
-            );
-    
-            this.donations = donation.products;
-
-        } catch (error) {
-            console.log(error);
-            this.showError('Ocorreu um erro.');
-        }
-    }
-
-    donate() {
-        this.updateStatus(this.donationItem.id, new DonationStatus(2))
-    }
-
-    confirmDonate() {
-        this.updateStatus(this.donationItem.id, new DonationStatus(3))
-    }
-
-    updateStatus(idDonation: number, status: DonationStatus) {
-        this.gatewayService.updateStatus(idDonation, status, this.authService.getToken())
-            .subscribe(
-                donation => {
-                    if (donation) {
-                        this.getUsers(donation);
-                    } else {
-                        this.showError('Ocorreu um erro.');
-                    }
-                },
-                error => {
-                    console.log(error);
-                    this.showError('Ocorreu um erro.');
-                }
-            );
-    }
 
     showError(msg: string) {
         this.msgError = msg;

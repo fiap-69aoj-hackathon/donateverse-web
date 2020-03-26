@@ -10,6 +10,7 @@ import { Donation } from 'app/model/donation.model';
 import { State } from 'app/model/state.model';
 import { DonationStatus } from 'app/model/donation.status.model';
 import { DonationCenter } from 'app/model/donation-center.model';
+import { AddressResponse } from 'app/model/address.response.model';
 
 @Injectable()
 export class GatewayService {
@@ -125,13 +126,17 @@ export class GatewayService {
   }
 
   getDonationCenterById(id: number): Observable<DonationCenter> {
-    return this.http.get<DonationCenter>(`${this.urlDonationCenter}/DonationCenter${id}`);
+    return this.http.get<DonationCenter>(`${this.urlDonationCenter}/DonationCenter/${id}`);
   }
 
   // ######################### OUTROS #########################
 
   getStates(): State[] {
     return this.states;
+  }
+
+  getAddress(zipCode: string) {
+    return this.http.get<AddressResponse>(`https://viacep.com.br/ws/${zipCode}/json/`);
   }
 
 }

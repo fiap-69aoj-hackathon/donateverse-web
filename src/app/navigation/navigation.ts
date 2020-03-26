@@ -20,7 +20,7 @@ export const navigation: FuseNavigation[] = [
                 title    : 'Doações',
                 translate: 'NAV.DONATE.TITLE',
                 type     : 'item',
-                icon     : 'location_on',
+                icon     : 'favorite_border',
                 url      : '/donation/list'
             },
             {
@@ -28,7 +28,7 @@ export const navigation: FuseNavigation[] = [
                 title    : 'Centros de Doação',
                 translate: 'NAV.DONATECENTER.TITLE',
                 type     : 'item',
-                icon     : 'favorite_border',
+                icon     : 'location_on',
                 url      : '/donation-center/list'
             }
         ]

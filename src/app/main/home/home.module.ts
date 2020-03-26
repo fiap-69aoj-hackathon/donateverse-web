@@ -3,6 +3,8 @@ import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { FuseWidgetModule } from '@fuse/components';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { FuseSharedModule } from '@fuse/shared.module';
 
@@ -11,7 +13,7 @@ import { AuthGuard } from 'app/main/auth-guard.service';
 
 const routes = [
     {
-        path     : 'home',
+        path: 'home',
         component: HomeComponent,
         canActivate: [AuthGuard]
     }
@@ -21,7 +23,7 @@ const routes = [
     declarations: [
         HomeComponent
     ],
-    imports     : [
+    imports: [
         RouterModule.forChild(routes),
 
         MatButtonModule,
@@ -29,13 +31,13 @@ const routes = [
 
         TranslateModule,
 
-        FuseSharedModule
+        FuseSharedModule,
+        FuseWidgetModule
     ],
-    exports     : [
+    exports: [
         HomeComponent
     ]
 })
 
-export class HomeModule
-{
+export class HomeModule {
 }
